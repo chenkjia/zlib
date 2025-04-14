@@ -140,6 +140,10 @@ def fetch_crypto_daily_binance(symbol: str, start_date: Optional[datetime] = Non
                     continue
                     
                 seen_dates.add(date_str)
+                # 如果这个日期是今天，跳过
+                today = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+                if date >= today:
+                    continue
                 daily_data = {
                     'date': date,
                     'open': float(kline[1]),
